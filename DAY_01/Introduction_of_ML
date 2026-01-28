@@ -1,0 +1,62 @@
+# -----------------------------------
+# 1️⃣ What is Machine Learning?
+# -----------------------------------
+# Machine Learning means teaching a machine to learn patterns from data
+# and make predictions on new (unseen) data.
+
+# Example:
+# Study hours -> predict marks
+# House size  -> predict price
+
+# -----------------------------------
+# 2️⃣ Features & Labels
+# -----------------------------------
+# Feature (X) = questions
+# Label (y)   = answer
+
+X = df[["hours"]]   # Feature
+y = df["marks"]     # Label
+
+
+# -----------------------------------
+# 3️⃣ Training vs Testing
+# -----------------------------------
+# Training data -> model learns pattern
+# Testing data  -> model is evaluated on unseen data
+
+
+# -----------------------------------
+# Train the model
+# -----------------------------------
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# -----------------------------------
+# Testing / Prediction
+# -----------------------------------
+predictions = model.predict(X_test)
+
+# -----------------------------------
+# 4️⃣ Overfitting vs Underfitting (Concept)
+# -----------------------------------
+"""
+Underfitting:
+- Model is too simple
+- Does not learn proper pattern
+- Example: Predicts same marks for everyone
+
+Overfitting:
+- Model learns training data too well
+- Fails on new data
+- Example: Memorizes answers without understanding
+
+Good Fit:
+- Learns general pattern
+- Works well on new data
+
+Simple Analogy:
+Underfitting = Didn’t study
+Overfitting  = Mugged up
+Good fit     = Understood the concept
+"""
+
