@@ -1,0 +1,78 @@
+"""
+train_test_split in Machine Learning
+------------------------------------
+
+train_test_split is used to divide data into:
+1. Training data -> model learns from this
+2. Testing data  -> model is evaluated on unseen data
+
+Why we split?
+- To check how well the model performs on new data
+- To avoid overfitting
+"""
+
+# -----------------------------------
+# Import required libraries
+# -----------------------------------
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+
+# -----------------------------------
+# Create a simple dataset
+# -----------------------------------
+data = {
+    "hours" : [1,2,3,4,5,6,7,8],
+    "marks" : [35,45,55,65,75,85,95,105]
+}
+
+df = pd.DataFrame(data)
+
+print("Original Dataset:")
+print(df)
+print("-" * 40)
+
+
+# -----------------------------------
+# Features and Label
+# -----------------------------------
+X = df[["hours"]]   # Feature (input)
+y = df["marks"]     # Label (output)
+
+
+# -----------------------------------
+# Using train_test_split
+# -----------------------------------
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.25,      # 25% data for testing
+    random_state=42      # ensures same split every time
+)
+
+print("Training Features (X_train):")
+print(X_train)
+print("\nTraining Labels (y_train):")
+print(y_train)
+
+print("\nTesting Features (X_test):")
+print(X_test)
+print("\nTesting Labels (y_test):")
+print(y_test)
+print("-" * 40)
+
+
+# -----------------------------------
+# Key Points (Concept)
+# -----------------------------------
+"""
+train_test_split parameters:
+- X, y       -> features and labels
+- test_size -> fraction of data used for testing
+- random_state -> fixed value to get same split every run
+
+Why train_test_split is important?
+- Model learns only from training data
+- Testing data checks real-world performance
+"""
+
+print("train_test_split explanation completed.")
