@@ -1,0 +1,54 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+df = pd.DataFrame({
+    "hours":[2,4,6,8,10],
+    "attendence":[60,70,80,90,95],
+    "marks":[45,55,70,85,95]
+})
+
+x = df[["hours","attendence"]]
+y = df["marks"]
+
+print("Features (X):")
+print(x)
+print("\nLabel (y):")
+print(y)
+print("-" * 40)
+
+
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
+
+model = LinearRegression()
+model.fit(x_train,y_train)
+
+print(model.predict([[7,85]]))
+
+print(model.score(x_test,y_test))
+
+#output:
+
+Features (X):
+   hours  attendence
+0      2          60
+1      4          70
+2      6          80
+3      8          90
+4     10          95
+
+Label (y):
+0    45
+1    55
+2    70
+3    85
+4    95
+Name: marks, dtype: int64
+----------------------------------------
+C:\Users\HP\AppData\Roaming\Python\Python310\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names
+  warnings.warn(
+[77.67857143]
+C:\Users\HP\AppData\Roaming\Python\Python310\site-packages\sklearn\metrics\_regression.py:1283: UndefinedMetricWarning: 
+R^2 score is not well-defined with less than two samples.
+  warnings.warn(msg, UndefinedMetricWarning)
+nan
