@@ -1,0 +1,25 @@
+import pandas as pd
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+
+df = pd.DataFrame({
+    "hours":[1,2,3,4,5],
+    "marks":[10,25,45,70,100]
+})
+
+x = df[["hours"]]
+y = df["marks"]
+
+poly = PolynomialFeatures(degree=2)
+x_poly = poly.fit_transform(x)
+
+model = LinearRegression()
+model.fit(x_poly,y)
+
+print(model.predict(poly.transform([[6]])))
+
+#OUTPUT:
+
+C:\Users\HP\AppData\Roaming\Python\Python310\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but PolynomialFeatures was fitted with feature names
+  warnings.warn(
+[135.]
