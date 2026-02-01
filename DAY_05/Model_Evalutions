@@ -1,0 +1,122 @@
+"""
+Model Evaluation for Regression Models
+--------------------------------------
+
+After training a model, we must answer:
+"How good is my model?"
+
+For regression problems, we commonly use:
+1. MAE  - Mean Absolute Error
+2. MSE  - Mean Squared Error
+3. RMSE - Root Mean Squared Error
+4. R²   - R-squared Score
+"""
+
+# -----------------------------------
+# Import required libraries
+# -----------------------------------
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import (
+    mean_absolute_error,
+    mean_squared_error,
+    r2_score
+)
+
+
+# -----------------------------------
+# Create a dataset
+# -----------------------------------
+data = {
+    "hours": [1, 2, 3, 4, 5, 6, 7, 8],
+    "marks": [35, 40, 50, 60, 70, 75, 80, 85]
+}
+
+df = pd.DataFrame(data)
+
+# -----------------------------------
+# Features & Label
+# -----------------------------------
+X = df[["hours"]]
+y = df["marks"]
+
+
+# -----------------------------------
+# Train-Test Split
+# -----------------------------------
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.25,
+    random_state=42   # fixes randomness (same result every run)
+)
+
+
+# -----------------------------------
+# Train the model
+# -----------------------------------
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+
+# -----------------------------------
+# Predictions
+# -----------------------------------
+y_pred = model.predict(X_test)
+
+
+# -----------------------------------
+# 1️⃣ MAE – Mean Absolute Error
+# -----------------------------------
+# Average of absolute errors
+# Formula : MAE = average(|actual - predicted|)
+mae = mean_absolute_error(y_test, y_pred)
+print("MAE (Mean Absolute Error):", mae)
+
+
+# -----------------------------------
+# 2️⃣ MSE – Mean Squared Error
+# -----------------------------------
+# Average of squared errors (penalizes large mistakes)
+# Formula : MSE = average((actual - predicted)^2)
+mse = mean_squared_error(y_test, y_pred)
+print("MSE (Mean Squared Error):", mse)
+
+
+# -----------------------------------
+# 3️⃣ RMSE – Root Mean Squared Error
+# -----------------------------------
+# Square root of MSE (same unit as target)
+# Formula : RMSE = sqrt(average((actual - predicted)^2))
+rmse = np.sqrt(mse)
+print("RMSE (Root Mean Squared Error):", rmse)
+
+
+# -----------------------------------
+# 4️⃣ R² Score – Most Important
+# -----------------------------------
+# Explains how much variance is captured by the model
+# Range : 1.0 => perfect , 0.0 => bad , negative => very bad
+r2 = r2_score(y_test, y_pred)
+print("R² Score:", r2)
+
+# OR directly using model
+print("R² Score (model.score):", model.score(X_test, y_test))
+
+
+# -----------------------------------
+# Interview-ready summary (notes)
+# -----------------------------------
+"""
+Model Evaluation Summary:
+
+- MAE: Average absolute error (smaller is better)
+- MSE: Penalizes large errors (value can be large)
+- RMSE: Square root of MSE (easy to interpret)
+- R² : Shows how well the model explains variance in data
+
+Why same output every run?
+Because random_state is fixed.
+It ensures the same train-test split every time.
+"""
